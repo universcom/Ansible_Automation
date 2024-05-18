@@ -3,5 +3,5 @@
   hosts: all
   become: true
   roles:
-    - join_ro_freeipa
+    - join_to_freeipa
 
