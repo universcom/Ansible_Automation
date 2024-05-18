@@ -1,0 +1,7 @@
+---
+- name: Start laying ... :)
+  hosts: ceph
+  become: true
+  roles:
+    - chicken
+

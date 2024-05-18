@@ -1,0 +1,33 @@
+---
+- name: Include FreeIPA variables
+  include_vars: freeipa.yml
+
+- name: Install freeipa-client
+  apt:
+    name: freeipa-client
+    state: latest
+    update_cache: yes
+  tags: freeipa_client_install
+
+- name: Uninstall freeipa client
+  shell: >
+    ipa-client-install --unattended --uninstall
+  ignore_errors: true
+  tags: freeipa_client_configure
+
+- name: Register this host on the freeipa servers
+  shell: >
+    echo '{{ FREEIPA_PRINCIPAL_PASS }}' | ipa-client-install
+    --hostname={{ inventory_hostname }}.damavand.cloud
+    --mkhomedir
+    --server=ipa1.damavand.cloud
+    --server=ipa2.damavand.cloud
+    --fixed-primary
+    --domain=damavand.cloud
+    --no-ntp
+    --unattended
+    --principal {{ FREEIPA_PRINCIPAL_USER }}
+    --force-join
+    --verbose
+  tags: freeipa_client_configure
+

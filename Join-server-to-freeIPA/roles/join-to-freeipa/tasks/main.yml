@@ -1,0 +1,4 @@
+---
+- include: freeipa-client.yml
+  tags:
+    - freeipa_client
