@@ -1,7 +1,7 @@
 ---
 - name: Start laying ... :)
-  hosts: ceph
+  hosts: all
   become: true
   roles:
-    - chicken
+    - join_ro_freeipa
 
